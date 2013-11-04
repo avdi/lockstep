@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Lockstep::VERSION
   spec.authors       = ["Avdi Grimm"]
   spec.email         = ["avdi@avdi.org"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Tools for testing threaded code in lockstep}
+  spec.summary       = %q{Tools for testing threaded code in lockstep}
   spec.homepage      = ""
   spec.license       = "MIT"
 
