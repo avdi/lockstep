@@ -78,3 +78,7 @@ end
 `Lockstep` does **not** stub out the behavior of Ruby threading primitives like `Mutex` and `ConditionVariable` for you. It is up to you to ensure that the code under test sends `SyncThread.interrupt` when it would ordinarily invoke a blocking system call. A recommended way to do this is to separate your logic from its interaction with the system using injectable [adapters](http://alistair.cockburn.us/Hexagonal+architecture).
 
 `Lockstep` cannot verify that you are using threads correctly. To ensure you're dealing with threading issues robustly you'll still need to write stress tests. What it *can* do is enable you to write isolated unit tests for your thread-aware code without having to coordinate actual threads in the context of a test. No sleeps, timeouts, deadlocked tests, test-introduced race conditions, forced rendezvous, etc. This means that you can TDD your thread-aware logic the same you would any other code.
+
+## How is this sorcery achieved?
+
+Go read the [source](https://github.com/avdi/lockstep/blob/master/lib/lockstep/sync_thread.rb), it's less than 100 lines of code.
