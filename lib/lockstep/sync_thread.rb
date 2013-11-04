@@ -1,6 +1,8 @@
 require 'forwardable'
 
 class SyncThread
+  extend Forwardable
+
   def self.interrupt(source, name, *args, &block)
     Fiber.yield(:interrupt, source, name, args, block)
   end
