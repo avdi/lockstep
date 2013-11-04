@@ -1,7 +1,12 @@
+require 'forwardable'
+
 class SyncThread
   def self.interrupt(source, name, *args, &block)
     Fiber.yield(:interrupt, source, name, args, block)
   end
+
+  attr_reader :status
+  def_delegators :status, :interrupted?, :interrupted_by?, :finished?
 
   def initialize
     @status = Started.new
@@ -36,6 +41,10 @@ class SyncThread
     resume(ignore: true)
   end
 
+  def last_return_value
+    status.return_value
+  end
+
   private
 
   def execute(options={})
@@ -58,13 +67,17 @@ class SyncThread
 
   class Started
     def finished?; true; end
+    def interrupted?; false; end
+    def interrupted_by?(*); false; end
   end
   Finished = Struct.new(:return_value) do
     def finished?; true; end
+    def interrupted?; false; end
     def interrupted_by?(*); false; end
   end
   Interrupted = Struct.new(:source, :name, :arguments, :block) do
     def finished?; false; end
+    def interrupted?; true; end
     def interrupted_by?(source_or_message, message=nil, args=nil)
       if args
         return false unless args === arguments
