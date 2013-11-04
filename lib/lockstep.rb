@@ -1,5 +1,5 @@
 require "lockstep/version"
-require "lockstop/sync_thread"
+require "lockstep/sync_thread"
 
 module Lockstep
 end
