@@ -73,7 +73,7 @@ end
 
 ## Huh?
 
-`SyncThread` can run arbitrary code within the context of a `Fiber`. Sending the `.interrupt` message returns control back to the controlling fiber early, along with information about what interrupted the execution. Some handy predicates are exposed to make it easy to make assertions about what happened during the last slice of fake thread execution.
+`SyncThread` can run arbitrary code within the context of a `Fiber`. Sending the `.interrupt` message returns control back to the test code early, along with information about what interrupted the execution. Some handy predicates are exposed to make it easy to make assertions about what happened during the last slice of fake thread execution.
 
 `Lockstep` does **not** stub out the behavior of Ruby threading primitives like `Mutex` and `ConditionVariable` for you. It is up to you to ensure that the code under test sends `SyncThread.interrupt` when it would ordinarily invoke a blocking system call. A recommended way to do this is to separate your logic from its interaction with the system using injectable [adapters](http://alistair.cockburn.us/Hexagonal+architecture).
 
